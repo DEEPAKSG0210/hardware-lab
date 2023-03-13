@@ -9,6 +9,14 @@ const EquipmentSchema = new Schema ({
         type : String,
         required : true,
     },
+    nfc_no : {
+        type : String,
+        required : true,
+    },
+    available : {
+        type : Number,
+        required : true,
+    },
     category : {
         type : String,
         required : true
