@@ -14,17 +14,17 @@ const EquipmentSchema = new Schema ({
         required : true,
     },
     available : {
-        type : Number,
+        type : String,
         required : true,
     },
     category : {
         type : String,
         required : true
     },
-    qty : {
-        type : Number,
-        required : true,
-    }
+    // qty : {
+    //     type : Number,
+    //     required : true,
+    // }
 });
 
 export default model("Equipment", EquipmentSchema);
