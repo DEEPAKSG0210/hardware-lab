@@ -27,7 +27,7 @@ const Login = () => {
                 },
                 error: (res) => {
                     console.log(err);
-                    return 'Retry again: ${err?.response?.data?.error}';
+                    return `Retry again: ${err?.response?.data?.error}`;
                 },
             }
         );

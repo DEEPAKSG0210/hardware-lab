@@ -5,6 +5,7 @@ import { toast } from "react-hot-toast";
 import TextInput from "./Input";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/psglogo.png";
+import { fetchSignup } from "../API/calls";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -21,7 +22,7 @@ const Login = () => {
             toast.error("Password cannot contain spaces");
             return;
         }
-        if (username.includes(" ")) {
+        if (id.includes(" ")) {
             toast.error("Username cannot contain spaces");
             return;
         }
@@ -46,23 +47,23 @@ const Login = () => {
         console.log(
             { id: id, password: password }
         )
-        if (selected) {
-            toast.promise(
-                fetchSignup({
-                    id: id,
-                    password: password,
-                }),
-                {
-                    loading: "Registering...",
-                    success: (res) => {
-                        return "Registered Successfully";
-                    },
-                    error: (err) => {
-                        return 'Error: ${err.response.data.error}';
-                    },
-                }
-            );
-        }
+        toast.promise(
+            fetchSignup({
+                userId: id,
+                password: password,
+            }),
+            {
+                loading: "Registering...",
+                success: (res) => {
+                    return "Registered Successfully";
+                },
+                error: (err) => {
+                    console.log(err);
+                    return `Error: ${err.response.data.error}`;
+                },
+            }
+        );
+
         navigate("/");
     };
 
@@ -104,7 +105,7 @@ const Login = () => {
                             </div>
                         </div>
                         <div className="flex items-center justify-center text-bold bg-blue-500 text-black py-1.5 px-6 mt-16 rounded-lg hover:bg-black hover:text-white">
-                            <button className=" text-lg" >
+                            <button className=" text-lg " onClick={handleClick} >
                                 Signup
                             </button>
                         </div>
