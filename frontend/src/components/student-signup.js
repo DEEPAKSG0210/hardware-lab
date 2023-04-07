@@ -5,36 +5,35 @@ import { toast } from "react-hot-toast";
 import TextInput from "./Input";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/psglogo.png";
+import { fetchStuSignup } from "../API/calls";
 
-const Student_Signup = () => {
+const Signup = () => {
     const navigate = useNavigate();
-    const [id, setId] = useState("");
+    const [userId, setUserId] = useState("");
     const [name, setName] = useState("");
 
     const handleClick = () => {
-        navigate("/Login");
+        console.log(
+            { userId: userId, name: name }
+        )
+        toast.promise(
+            fetchStuSignup({
+                userId: userId,
+                name: name,
+            }),
+            {
+                loading: "Registering...",
+                success: (res) => {
+                    navigate("/student-login");
+                    return "Signup Successful";
+                },
+                error: (err) => {
+                    console.log(err);
+                    return `Retry Again: ${err?.response?.data?.error}`;
+                },
+            }
+        )
     };
-
-    // const handleClick = () => {
-    //     toast.promise(
-    //         fetchLogin({
-    //             identification: id,
-    //             password: password,
-    //         }),
-    //         {
-    //             loading: "Verifying...",
-    //             success: (res) => {
-    //                 navigate("/student-login");
-    //                 return "Login Successful";
-    //             },
-    //             error: (err) => {
-    //                 console.log(err);
-    //                 return 'Retry Again: ${err?.response?.data?.error}';
-    //             },
-    //         }
-    //     );
-    // };
-
     return (
         <div className="" >
             <div className="flex w-screen overflow-hidden h-screen font-lato font-bold" >
@@ -55,25 +54,25 @@ const Student_Signup = () => {
                                         Scan ID Card
                                     </button>
                                 </div>
-                                    <TextInput
-                                        className="mt-8"
-                                        valueState={[id, setId]}
-                                        placeholder="Enter ID Number"
-                                        title="Identification Number"
-                                    />
-                                    <TextInput
-                                        className="mt-8"
-                                        valueState={[name, setName]}
-                                        placeholder="Enter Name"
-                                        title="Name"
-                                    />
-                                </div>
+                                <TextInput
+                                    className="mt-8"
+                                    valueState={[userId, setUserId]}
+                                    placeholder="Enter ID Number"
+                                    title="Identification Number"
+                                />
+                                <TextInput
+                                    className="mt-8"
+                                    valueState={[name, setName]}
+                                    placeholder="Enter Name"
+                                    title="Name"
+                                />
                             </div>
-                            <div className="flex items-center justify-center text-bold bg-blue-500 text-black py-1.5 px-6 mt-16 rounded-lg hover:bg-black hover:text-white">
-                                <button className=" text-lg" onClick={handleClick}>
-                                    Signup
-                                </button>
-                            </div>
+                        </div>
+                        <div className="flex items-center justify-center text-bold bg-blue-500 text-black py-1.5 px-6 mt-16 rounded-lg hover:bg-black hover:text-white">
+                            <button className=" text-lg" onClick={handleClick}>
+                                Signup
+                            </button>
+                        </div>
                         <div className="flex items-center justify-center mt-4">
                             <p className="text-xs">
                                 <Link to="/student-login">
@@ -98,6 +97,7 @@ const Student_Signup = () => {
     );
 };
 
-export default Student_Signup;
+
+export default Signup;
 
 

@@ -1,9 +1,9 @@
 import { Schema, model } from "mongoose";
 
-const UserSchema =  new Schema({
+const StaffSchema =  new Schema({
     userId: {
         type: String,
-        reruired: true,
+        required: true,
     },
     password: {
         type: String,
@@ -11,4 +11,4 @@ const UserSchema =  new Schema({
     }
 });
 
-export default model("user", UserSchema);
+export default model("Staff", StaffSchema);

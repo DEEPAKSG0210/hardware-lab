@@ -9,7 +9,7 @@ const EquipmentSchema = new Schema({
         type: String,
         required: true,
     },
-    barcode: {
+    nfc_no: {
         type: String,
         required: true,
     },
@@ -17,7 +17,7 @@ const EquipmentSchema = new Schema({
         type: String,
         required: true,
     },
-    qty: {
+    category: {
         type: String,
         required: true,
     },

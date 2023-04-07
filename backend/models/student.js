@@ -1,7 +1,7 @@
-import { Schema, model} from "mongoose";
+import { Schema, model } from "mongoose";
 
-const StudentSchema = new Schema({
-    id: {
+const StudentSchema =  new Schema({
+    userId: {
         type: String,
         required: true,
     },

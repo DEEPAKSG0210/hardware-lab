@@ -5,35 +5,36 @@ import { toast } from "react-hot-toast";
 import TextInput from "./Input";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/psglogo.png";
+import { fetchStuLogin } from "../API/calls";
 
-const Student_Login = () => {
+const Login = () => {
     const navigate = useNavigate();
     const [id, setId] = useState("");
     const [name, setName] = useState("");
 
     const handleClick = () => {
-        navigate("/Home");
+        const postBody = { userId: id, name: name };
+        fetchStuLogin(postBody)
+            .then((res) => {
+                if (res.status === 200) {
+                    localStorage.setItem("userId", res.data.userId);
+                    localStorage.setItem("name", res.data.name);
+                    console.log(res.data.userId);
+                    console.log(res.data.name);
+                    toast.success("Login Successful");
+                    navigate("/Home");
+                } else {
+                    toast.error("Login Failed");
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+                toast.error("Login Failed");
+            }
+            );
     };
 
-    // const handleClick = () => {
-    //     toast.promise(
-    //         fetchLogin({
-    //             identification: id,
-    //             password: password,
-    //         }),
-    //         {
-    //             loading: "Verifying...",
-    //             success: (res) => {
-    //                 navigate("/student-login");
-    //                 return "Login Successful";
-    //             },
-    //             error: (err) => {
-    //                 console.log(err);
-    //                 return 'Retry Again: ${err?.response?.data?.error}';
-    //             },
-    //         }
-    //     );
-    // };
+
 
     return (
         <div className="" >
@@ -50,30 +51,19 @@ const Student_Login = () => {
                             <div
                                 className={`w-full flex flex-col items-start justify-center`}
                             >
-                                <div className="flex items-center justify-center text-bold bg-blue-500 text-black py-1.5 px-6 mt-16 rounded-lg hover:bg-black hover:text-white">
-                                    <button className=" text-lg" >
-                                        Scan ID Card
-                                    </button>
-                                </div>
-                                    <TextInput
-                                        className="mt-8"
-                                        valueState={[id, setId]}
-                                        placeholder="Enter ID Number"
-                                        title="Identification Number"
-                                    />
-                                    <TextInput
-                                        className="mt-8"
-                                        valueState={[name, setName]}
-                                        placeholder="Enter Name"
-                                        title="Name"
-                                    />
-                                </div>
+                                <TextInput
+                                    className="mt-8"
+                                    valueState={[id, setId]}
+                                    placeholder="Enter ID Number"
+                                    title="Identification Number"
+                                />
                             </div>
-                            <div className="flex items-center justify-center text-bold bg-blue-500 text-black py-1.5 px-6 mt-16 rounded-lg hover:bg-black hover:text-white">
-                                <button className=" text-lg" onClick={handleClick}>
-                                    Login
-                                </button>
-                            </div>
+                        </div>
+                        <div className="flex items-center justify-center text-bold bg-blue-500 text-black py-1.5 px-6 mt-16 rounded-lg hover:bg-black hover:text-white">
+                            <button className=" text-lg" onClick={handleClick}>
+                                Login
+                            </button>
+                        </div>
                         <div className="flex items-center justify-center mt-4">
                             <p className="text-xs">
                                 <Link to="/student-signup">
@@ -98,6 +88,6 @@ const Student_Login = () => {
     );
 };
 
-export default Student_Login;
+export default Login;
 
 

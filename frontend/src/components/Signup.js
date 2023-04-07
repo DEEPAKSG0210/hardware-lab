@@ -5,9 +5,10 @@ import { toast } from "react-hot-toast";
 import TextInput from "./Input";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/psglogo.png";
-import { fetchSignup } from "../API/calls";
+import axios from "axios";
+import { fetchStaffSignup } from "../API/calls";
 
-const Login = () => {
+const Signup = () => {
     const navigate = useNavigate();
     const [id, setId] = useState("");
     const [password, setPassword] = useState("");
@@ -45,10 +46,10 @@ const Login = () => {
             return;
         }
         console.log(
-            { id: id, password: password }
+            { userId: id, password: password }
         )
         toast.promise(
-            fetchSignup({
+            fetchStaffSignup({
                 userId: id,
                 password: password,
             }),
@@ -58,7 +59,7 @@ const Login = () => {
                     return "Registered Successfully";
                 },
                 error: (err) => {
-                    console.log(err);
+                    console.log(err.response.data.error);
                     return `Error: ${err.response.data.error}`;
                 },
             }
@@ -134,6 +135,6 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Signup;
 
 

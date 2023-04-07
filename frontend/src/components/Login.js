@@ -5,32 +5,34 @@ import { toast } from "react-hot-toast";
 import TextInput from "./Input";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/psglogo.png";
-import { fetchLogin } from "../API/calls";
+import { fetchStaffLogin } from "../API/calls";
 
 const Login = () => {
     const navigate = useNavigate();
     const [id, setId] = useState("");
     const [password, setPassword] = useState("");
+   
 
-    const handleClick = () => {
-        toast.promise(
-            fetchLogin({
-                identification: id,
-                password: password,
-            }),
-            {
-                loading: "Verifying...",
-                success: (res) => {
+    const handleClick = (e) => {
+        const postbody = { userId: id, password: password };
+        // console.log(id);
+        // console.log(password);
+        fetchStaffLogin(postbody)
+            .then((res) => {
+                if (res.status === 200) {
                     localStorage.setItem("token", res.data.token);
+                    localStorage.setItem("id", res.data.userId);
+                    console.log(res.data.token);
+                    console.log(res.data.userId);
+                    toast.success("Login Successful");
                     navigate("/student-login");
-                    return "Login Successful";
-                },
-                error: (res) => {
-                    console.log(err);
-                    return `Retry again: ${err?.response?.data?.error}`;
-                },
-            }
-        );
+                } else {
+                    toast.error("Login Failed");
+                }
+            })
+            .catch((err) => {
+                toast.error("Login Failed");
+            });
     };
 
     return (
@@ -64,7 +66,7 @@ const Login = () => {
                             </div>
                         </div>
                         <div className="flex items-center justify-center text-bold bg-blue-500 text-black py-1.5 px-6 mt-16 rounded-lg hover:bg-black hover:text-white">
-                            <button className=" text-lg" onClick={handleClick} >
+                            <button className=" text-lg" onClick={e => handleClick(e)} >
                                 Login
                             </button>
                         </div>
