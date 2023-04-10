@@ -9,16 +9,16 @@ import axios from "axios";
 function Home() {
     const [roll, setRoll] = useState("");
     const [name, setName] = useState("");
-    const [Id, setId] = useState("");
-    const [equipmentName, setEquipmentName] = useState("");
-    const [nfc, setNfc] = useState("");
-    const [available, setAvailable] = useState("");
+    const [equipmentName, setEquipmentName] = useState([]);
+    const [available, setAvailable] = useState([]);
     const [qty, setQty] = useState("");
+    const [barcode, setBarcode] = useState("");
+    const [category, setCategory] = useState([]);
     const navigate = useNavigate();
     const userId = localStorage.getItem("student");
     const fetchData = async () => {
         const response = axios
-            .get("https://localhost:3002/api/student" + userId)
+            .get("http://localhost:3002/api/student" + userId)
             .then((response) => {
                 console.log(response.data);
                 const arr = response.data[0]
@@ -30,9 +30,30 @@ function Home() {
             });
     };
 
+    const fetchItemDetails = async () => {
+        console.log(barcode)
+        const response = axios
+            .get(`http://localhost:3002/api/equipment/id/${barcode}`)
+            .then((response) => {
+                console.log(response.data);
+                const arr = response.data;
+                setEquipmentName([...equipmentName, arr.name])
+                setAvailable([...available, arr.available])
+                setCategory([...category, arr.category])
+                
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
+
     useEffect(() => {
         fetchData();
     }, []);
+
+    const handleChange = (e) => {
+        setBarcode(e.target.value);
+    };
 
     return (
         <div className="flex flex-col w-screen" >
@@ -42,7 +63,7 @@ function Home() {
             </div>
 
             <div className="flex flex-row space-x-4 pt-16 pl-24">
-                <p className="font-semibold">Roll No.:</p>
+                <p className="font-semibold">Roll No:</p>
                 <p>{localStorage.getItem("userId")}</p>
             </div>
 
@@ -51,75 +72,46 @@ function Home() {
                 <p>{localStorage.getItem("name")}</p>
             </div>
 
-            <div className="flex flex-col justify-center items-center mt-8 border-2 border-black w-3/4 mx-24">
-                <div className="flex flex-row border-b-2 border-b-black w-full justify-between font-semibold">
-                    <p className="border-r-2 border-r-black p-4 w-1/5 text-center">
-                        ID
-                    </p>
-                    <p className="border-r-2 border-r-black p-4 w-1/5 text-center">
-                        Equipment Name
-                    </p>
-                    <p className="border-r-2 border-r-black p-4 w-1/5 text-center">
-                        Barcode
-                    </p>
-                    <p className="border-r-2 border-r-black p-4 w-1/5 text-center">
-                        Available
-                    </p>
-                    <p className="p-4 w-1/5 text-center">
-                        Quantity
-                    </p>
+            <p className="mt-8 ml-24 font-semibold">Barcode</p>
+            <div className="flex flex-row space-x-4 pt-4 pl-24">
+                <input type="text" className="border-2 border-gray-300 p-2 w-1/4" placeholder="Eg: 22432551" value={barcode} onChange={handleChange} />
+                <button className="bg-blue-500 p-2 text-white rounded-lg w-1/5"
+                    onClick={() => {
+                        fetchItemDetails();
+                    }}
+                >Fetch Details</button>
+            </div>
+
+            <div className="flex flex-row space-x-8 pt-4 pl-24">
+                <div className="flex flex-col">
+                    <p className="font-semibold">Equipment Name</p>
+                    {
+                        equipmentName.map((item, index) => {
+                            return (
+                                <p>{item}</p>
+                            )
+                        })
+                    }
                 </div>
-
-                <div className="flex flex-row border-b-2 border-b-black w-full justify-between">
-                    <p className="border-r-2 border-r-black p-4 w-1/5 text-center">
-
-                    </p>
-                    <p className="border-r-2 border-r-black p-4 w-1/5 text-center">
-
-                    </p>
-                    <p className="border-r-2 border-r-black p-4 w-1/5 text-center">
-
-                    </p>
-                    <p className="border-r-2 border-r-black p-4 w-1/5 text-center">
-
-                    </p>
-                    <p className="p-4 w-1/5 text-center">
-
-                    </p>
+                <div className="flex flex-col">
+                    <p className="font-semibold">Category</p>
+                    {
+                        category.map((item, index) => {
+                            return (
+                                <p>{item}</p>
+                            )
+                        })
+                    }
                 </div>
-                <div className="flex flex-row border-b-2 border-b-black w-full justify-between">
-                    <p className="border-r-2 border-r-black p-4 w-1/5 text-center">
-
-                    </p>
-                    <p className="border-r-2 border-r-black p-4 w-1/5 text-center">
-
-                    </p>
-                    <p className="border-r-2 border-r-black p-4 w-1/5 text-center">
-
-                    </p>
-                    <p className="border-r-2 border-r-black p-4 w-1/5 text-center">
-
-                    </p>
-                    <p className="p-4 w-1/5 text-center">
-
-                    </p>
-                </div>
-                <div className="flex flex-row border-b-2 border-b-black w-full justify-between">
-                    <p className="border-r-2 border-r-black p-4 w-1/5 text-center">
-                        
-                    </p>
-                    <p className="border-r-2 border-r-black p-4 w-1/5 text-center">
-
-                    </p>
-                    <p className="border-r-2 border-r-black p-4 w-1/5 text-center">
-
-                    </p>
-                    <p className="border-r-2 border-r-black p-4 w-1/5 text-center">
-
-                    </p>
-                    <p className="p-4 w-1/5 text-center">
-
-                    </p>
+                <div className="flex flex-col">
+                    <p className="font-semibold">Available</p>
+                    {
+                        available.map((item, index) => {
+                            return (
+                                <p className="text-center">{item}</p>
+                            )
+                        })
+                    }
                 </div>
             </div>
 

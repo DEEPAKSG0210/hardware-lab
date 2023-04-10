@@ -9,6 +9,7 @@ const StudentSchema =  new Schema({
         type: String,
         required: true,
     }
+    
 });
 
 export default model("student", StudentSchema);

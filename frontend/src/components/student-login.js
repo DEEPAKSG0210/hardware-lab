@@ -72,7 +72,17 @@ const Login = () => {
                                 </Link>
                             </p>
                         </div>
+                        <div className="flex items-center justify-center mt-4 ml-auto">
+                            <div className="flex items-corner justify-right text-bold bg-blue-500 text-black py-1.5 px-6 mt-16 rounded-lg hover:bg-black hover:text-white">
+                                <Link to="/dues">
+                                    <button className=" text-lg" >
+                                        Dues
+                                    </button>
+                                </Link>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
                 <div
                     className="w-[60%] flex-1.5 bg-smoke rounded-[36px] m-3"

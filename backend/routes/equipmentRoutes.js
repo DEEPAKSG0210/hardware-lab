@@ -5,8 +5,20 @@ const router = Router();
 
 router.get("/", async (req, res) => {
   try {
-    const equipment = await equipment.find();
-    res.status(200).json(equipment);
+    const equit = await equipment.find();
+    res.status(200).json(equit);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+});
+
+router.get("/id/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const eq = await equipment.findOne({
+      barcode: id,
+    })
+    res.status(200).json(eq);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

@@ -15,6 +15,7 @@ app.use(urlencoded());
 app.use("/api/staff", staffRoutes);
 app.use("/api/student", studentRoutes);
 app.use("/api/equipment", equipmentRoutes);
+// app.use("/api/borrow", borrowRoutes);
 
 
 app.get("/", async (req, res) => {

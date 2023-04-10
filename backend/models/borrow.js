@@ -1,6 +1,14 @@
 import { Schema, model} from "mongoose";
 
-const EquipmentSchema = new Schema({
+const BorrowSchema = new Schema({
+    student_name: {
+        type: String,
+        required: true
+    },
+    student_id: {
+        type: String,
+        required: true
+    },
     id: {
         type: String,
         required: true,
@@ -9,7 +17,7 @@ const EquipmentSchema = new Schema({
         type: String,
         required: true,
     },
-    barcode: {
+    nfc_no: {
         type: String,
         required: true,
     },
@@ -24,4 +32,4 @@ const EquipmentSchema = new Schema({
 
 });
 
-export default model("equipment", EquipmentSchema);
+export default model("borrow", BorrowSchema);
