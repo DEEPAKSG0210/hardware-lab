@@ -206,7 +206,7 @@ function Home() {
     };
 
     return (
-        <div className="flex flex-col w-screen" >
+        <div className="flex flex-col w-screen">
             <div className="w-full bg-blue-500 p-8 text-white flex flex-row items-center justify-center relative">
                 <img src="/psglogo.png" alt="logo" className="h-16 absolute top-4 left-4" />
                 <p className="text-xl font-semibold">Hardware Laboratory</p>
@@ -253,43 +253,43 @@ function Home() {
                 >Add Item</button>
             </div>
 
-            <div className="flex flex-row space-x-8 pt-16 pl-24">
+            <div className="flex flex-row w-full pt-16 px-24">
                 <div className="flex flex-col w-[5%]">
                     <p className="font-semibold text-xl">S.No.</p>
                     {
                         equipmentName.map((item, index) => {
                             return (
-                                <p className="py-4 text-lg">{index + 1}.</p>
+                                <p className="py-4 text-lg h-16 border-b-2">{index + 1}.</p>
                             )
                         })
                     }
                 </div>
-                <div className="flex flex-col w-1/4">
+                <div className="flex flex-col w-[25%]">
                     <p className="font-semibold text-xl">Equipment Name</p>
                     {
                         equipmentName.map((item, index) => {
                             return (
-                                <p className="py-4 text-lg">{item}</p>
+                                <p className="py-4 h-16 border-b-2">{item}</p>
                             )
                         })
                     }
                 </div>
-                <div className="flex flex-col w-1/6">
+                <div className="flex flex-col w-[10%]">
                     <p className="font-semibold text-xl">Barcode</p>
                     {
                         barcode.map((item, index) => {
                             return (
-                                <p className="py-4 text-lg">{item}</p>
+                                <p className="py-4 text-lg h-16 border-b-2">{item}</p>
                             )
                         })
                     }
                 </div>
-                <div className="flex flex-col w-1/6">
+                <div className="flex flex-col w-[20%]">
                     <p className="font-semibold text-xl">Category</p>
                     {
                         category.map((item, index) => {
                             return (
-                                <p className="py-4 text-lg">{item}</p>
+                                <p className="py-4 text-lg h-16 border-b-2">{item}</p>
                             )
                         })
                     }
@@ -299,17 +299,17 @@ function Home() {
                     {
                         available.map((item, index) => {
                             return (
-                                <p className="py-4 text-lg">{item}</p>
+                                <p className="py-4 text-lg h-16 border-b-2">{item}</p>
                             )
                         })
                     }
                 </div>
-                <div className="flex flex-col w-1/6">
+                <div className="flex flex-col w-[20%]">
                     <p className="font-semibold text-xl">Quantity</p>
                     {
                         qty.map((item, index) => {
                             return (
-                                <div className="flex flex-row space-x-4 items-center pt-4 pb-1 ">
+                                <div className="flex flex-row space-x-4 items-center py-2 h-16 border-b-2">
                                     <button className="bg-blue-500 p-1 text-white rounded-lg w-1/6 h-10 text-lg"
                                         onClick={() => {
                                             setQty(qty.map((item, i) => {
@@ -338,108 +338,110 @@ function Home() {
                         })
                     }
                 </div>
-                <div className="flex flex-col w-1/6">
+                <div className="flex flex-col w-[10%]">
                     <p className="font-semibold text-xl">Delete</p>
                     {
                         equipmentName.map((item, index) => {
                             return (
-                                <button className="text-black hover:text-red-500 text-2xl pt-6 pb-3 rounded-lg w-fit"
-                                    onClick={() => {
-                                        setEquipmentName(equipmentName.filter((item, i) => i !== index));
-                                        setAvailable(available.filter((item, i) => i !== index));
-                                        setCategory(category.filter((item, i) => i !== index));
-                                        setQty(qty.filter((item, i) => i !== index));
-                                        setBarcode(barcode.filter((item, i) => i !== index));
-                                    }}
-                                >
-                                    <MdDelete />
-                                </button>
+                                <div className="flex items-center h-16 border-b-2">
+                                    <button className="text-black hover:text-red-500 text-2xl rounded-lg w-fit"
+                                        onClick={() => {
+                                            setEquipmentName(equipmentName.filter((item, i) => i !== index));
+                                            setAvailable(available.filter((item, i) => i !== index));
+                                            setCategory(category.filter((item, i) => i !== index));
+                                            setQty(qty.filter((item, i) => i !== index));
+                                            setBarcode(barcode.filter((item, i) => i !== index));
+                                        }}
+                                    >
+                                        <MdDelete />
+                                    </button>
+                                </div>
                             )
                         })
                     }
                 </div>
             </div>
 
-            <div className="w-full flex justify-end mt-16 pr-32">
-                <button className="w-[10%] bg-blue-500 p-2 text-white rounded-lg"
+            <div className="w-full flex justify-end mt-12 pr-24">
+                <button className="w-[10%] bg-blue-500 p-2 text-white rounded-lg font-semibold"
                     onClick={() => { handleCheckout() }}
                 >Checkout</button>
             </div>
 
             {borrowed && borrowed.length > 0 && (
-                <div className="flex flex-col space-y-4 pt-16 pl-24">
+                <div className="flex flex-col space-y-4 pt-16 px-24">
                     <p className="text-2xl font-bold">Return Items</p>
 
-                    <div className="flex flex-row space-x-8">
+                    <div className="flex flex-row w-full">
                         <div className="flex flex-col w-[5%]">
                             <p className="font-semibold text-xl">S.No.</p>
                             {
                                 borrowed.map((item, index) => {
                                     return (
-                                        <p className="py-4 text-lg">{index + 1}.</p>
+                                        <p className="py-4 text-lg h-16 border-b-2">{index + 1}.</p>
                                     )
                                 })
                             }
                         </div>
-                        <div className="flex flex-col w-1/5">
+                        <div className="flex flex-col w-[25%]">
                             <p className="font-semibold text-xl">Equipment Name</p>
                             {
                                 borrowed.slice(0).reverse().map((item, index) => {
                                     return (
-                                        <p className="py-4 text-lg">{borrowedDetails.find(x => x.nfc_no === item[0])?.name}</p>
+                                        <p className="py-4 h-16 border-b-2">{borrowedDetails.find(x => x.nfc_no === item[0])?.name}</p>
                                     )
                                 })
                             }
                         </div>
-                        <div className="flex flex-col w-1/6">
+                        <div className="flex flex-col w-[10%]">
                             <p className="font-semibold text-xl">Barcode</p>
                             {
                                 borrowed.slice(0).reverse().map((item, index) => {
                                     return (
-                                        <p className="py-4 text-lg">{item[0]}</p>
+                                        <p className="py-4 text-lg h-16 border-b-2">{item[0]}</p>
                                     )
                                 })
                             }
                         </div>
                         <div className="flex flex-col w-[10%]">
-                            <p className="font-semibold text-xl">Quantity</p>
+                            <p className="font-semibold text-center text-xl">Quantity</p>
                             {
                                 borrowed.slice(0).reverse().map((item, index) => {
                                     return (
-                                        <p className="py-4 text-lg">{item[1]}</p>
+                                        <p className="py-4 text-lg text-center h-16 border-b-2">{item[1]}</p>
                                     )
                                 })
                             }
                         </div>
-                        <div className="flex flex-col w-1/6">
+                        <div className="flex flex-col w-[20%]">
                             <p className="font-semibold text-xl">Borrowed On</p>
                             {
                                 borrowed.slice(0).reverse().map((item, index) => {
                                     return (
-                                        <p className="py-4 text-lg">{item[2]}</p>
+                                        <p className="py-4 text-lg h-16 border-b-2">{item[2]}</p>
                                     )
                                 })
                             }
                         </div>
-                        <div className="flex flex-col w-[10%]">
+                        <div className="flex flex-col w-[12%]">
                             <p className="font-semibold text-xl">Status</p>
                             {
                                 borrowed.slice(0).reverse().map((item, index) => {
                                     return (
-                                        <p className={`py-4 text-lg font-semibold ${item[3] === "Not Returned" ? "text-red-500" : "text-green-500"}`}>{item[3]}</p>
+                                        <p className={`py-4 text-lg h-16 border-b-2 font-semibold ${item[3] === "Not Returned" ? "text-red-500" : "text-green-500"}`}>{item[3]}</p>
                                     )
                                 })
                             }
                         </div>
-                        <div className="flex flex-col w-1/6">
+                        <div className="flex flex-col w-[18%]">
                             <p className="font-semibold text-xl">Return</p>
                             {
                                 borrowed.slice(0).reverse().map((item, index) => {
                                     return (
-                                        <div>
+                                        <div className="border-b-2 h-16">
                                             {
                                                 item[3] === "Not Returned" ? (
-                                                    <button className="bg-red-500 hover:bg-red-600 font-semibold text-white px-4 py-1 my-4 rounded-lg w-fit h-8"
+                                                    <button className="bg-red-500 hover:bg-red-600 font-semibold text-white px-4 py-2 my-3 rounded-lg w-fit h-10 border-b-2"
                                                         onClick={() => {
                                                             handleReturn(item);
                                                         }}
@@ -447,7 +449,7 @@ function Home() {
                                                         Return
                                                     </button>
                                                 ) : (
-                                                    <p className="py-4 text-lg">{item[4]}</p>
+                                                    <p className="py-4 text-lg h-16">{item[4]}</p>
                                                 )
                                             }
                                         </div>
