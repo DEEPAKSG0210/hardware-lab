@@ -59,7 +59,7 @@ const Login = () => {
                                 />
                             </div>
                         </div>
-                        <div className="flex items-center justify-center text-bold bg-blue-500 text-black py-1.5 px-6 mt-16 rounded-lg hover:bg-black hover:text-white">
+                        <div className="flex items-center justify-center text-bold bg-blue-500 text-black py-1.5 px-6 mt-16 mr-8 rounded-lg hover:bg-black hover:text-white">
                             <button className=" text-lg" onClick={handleClick}>
                                 Login
                             </button>
@@ -74,7 +74,7 @@ const Login = () => {
                         </div>
                         <div className="flex items-center justify-center mt-4 ml-auto">
                             <div className="flex items-corner justify-right text-bold bg-blue-500 text-black py-1.5 px-6 mt-16 rounded-lg hover:bg-black hover:text-white">
-                                <Link to="/dues">
+                                <Link to="/View">
                                     <button className=" text-lg" >
                                         Dues
                                     </button>
