@@ -27,7 +27,7 @@ router.post("/", async (req, res) => {
 });
 
 router.get("/:userId", async (req, res) => {
-  const student = await Student.findById(req.params.userId);
+  const student = await Student.findOne({ userId: req.params.userId });
   if (!student) {
     res.status(404).json({ message: "User not found" });
   } else {
@@ -60,5 +60,20 @@ router.post("/login", async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 });
+
+router.put("/borrow", async (req, res) => {
+  const { roll, borrow } = req.body;
+  try {
+    const user = await Student.findOneAndUpdate(
+      {userId: roll},
+      {
+        borrow: borrow,
+      },
+    )
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+})
 
 export default router;

@@ -8,6 +8,9 @@ const StudentSchema =  new Schema({
     name: {
         type: String,
         required: true,
+    },
+    borrow: {
+        type: [Array]
     }
     
 });
